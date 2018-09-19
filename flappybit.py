@@ -9,13 +9,14 @@ screen = [
 	[0, 0, 0, 0, 0],
 ]
 
+
 def tick(time):
 	sleep(time)
 	os.system('cls')
 
 
-def render(screen):  # TODO: Update this when we actually get a MicroBit
-	for y in screen:
+def render(world):  # TODO: Update this when we actually get a MicroBit
+	for y in world:
 		for x in y:
 			print(x, end=' ', flush=True)
 		print()

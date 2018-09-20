@@ -27,3 +27,6 @@ while True:  # Main game loop
 	render(screen)
 
 	tick(1)
+
+
+#lukas was hier

@@ -29,4 +29,4 @@ while True:  # Main game loop
 	tick(1)
 
 
-#lukas was hier
+#lukas hier

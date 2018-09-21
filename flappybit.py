@@ -8,34 +8,34 @@ meteors = []
 
 #---------------------------------------------> Class definition
 
-class meteor():
-    def __init__(self):
-        self.x = randint(0, 4)
-        self.y = 0
-    def __del__(self):
-        meteors.remove(self)
+class Meteor():
+	def __init__(self):
+		self.x = randint(0, 4)
+		self.y = 0
+	def __del__(self):
+		meteors.remove(self)
 
-class player():
-    def __init__(self):
-        self.x = 2
-        self.y = 3
-        self.alive = True
-        
+class Player():
+	def __init__(self):
+		self.x = 2
+		self.y = 3
+		self.alive = True
+		
 #---------------------------------------------> Function definition
-        
-def meteorLoop():
-    for meteor in meteors:
-        if meteor.y = 4:
-            del meteor
-        meteor.y = y + 1
-    for i in range(0, level):
-        meteors.append(meteor())
-    microbit.display.clear()
-    for meteor in meteors:
-        microbit.display.set_pixel(meteor.x, meteor.y, 100)
+		
+def meteor_loop():
+	for meteor in meteors:
+		if meteor.y == 4:
+			del meteor
+		meteor.y = y + 1
+	for i in range(0, level):
+		meteors.append(meteor())
+	microbit.display.clear()
+	for meteor in meteors:
+		microbit.display.set_pixel(meteor.x, meteor.y, 100)
 
 #---------------------------------------------> Execution of code
 
 while True:
-    meteorLoop()
-    sleep(1)
+	meteor_loop()
+	sleep(1)

@@ -1,32 +1,41 @@
-import os
+#---------------------------------------------> Setup
+
+import microbit
 from time import sleep
+from random import randint
+level = 1
+meteors = []
 
-screen = [
-	[0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0],
-	[0, 0, 0, 0, 0],
-]
+#---------------------------------------------> Class definition
 
+class meteor():
+    def __init__(self):
+        self.x = randint(0, 4)
+        self.y = 0
+    def __del__(self):
+        meteors.remove(self)
 
-def tick(time):
-	sleep(time)
-	os.system('cls')
+class player():
+    def __init__(self):
+        self.x = 2
+        self.y = 3
+        self.alive = True
+        
+#---------------------------------------------> Function definition
+        
+def meteorLoop():
+    for meteor in meteors:
+        if meteor.y = 4:
+            del meteor
+        meteor.y = y + 1
+    for i in range(0, level):
+        meteors.append(meteor())
+    microbit.display.clear()
+    for meteor in meteors:
+        microbit.display.set_pixel(meteor.x, meteor.y, 100)
 
+#---------------------------------------------> Execution of code
 
-def render(world):  # TODO: Update this when we actually get a MicroBit
-	for y in world:
-		for x in y:
-			print(x, end=' ', flush=True)
-		print()
-
-
-os.system('cls')
-while True:  # Main game loop
-	render(screen)
-
-	tick(1)
-
-
-#lukas hi
+while True:
+    meteorLoop()
+    sleep(1)

@@ -13,12 +13,13 @@ class Movable:
 	x = None
 	y = None
 	outside = False
+	brightness = 9
 
 	def move(self, oldx, oldy, x, y):
 		self.x = x
 		self.y = y
 		microbit.display.set_pixel(oldx, oldy, 0)
-		microbit.display.set_pixel(x, y, 9)
+		microbit.display.set_pixel(x, y, self.brightness)
 
 	def move_relative(self, x, y):
 		microbit.display.set_pixel(self.x, self.y, 0)
@@ -28,13 +29,15 @@ class Movable:
 			self.outside = True
 
 	def render(self):
-		microbit.display.set_pixel(self.x, self.y, 9)
+		microbit.display.set_pixel(self.x, self.y, self.brightness)
 
 
 class Meteor(Movable):
 	def __init__(self):
 		self.x = randint(0, 4)
 		self.y = 0
+		self.brightness = 4
+		self.render()
 
 
 class Player(Movable):
@@ -56,7 +59,7 @@ def meteor_loop():
 		else:
 			meteor.move(meteor.x, meteor.y, randint(0, 4), 0)
 			meteor.outside = False
-	if len(meteors) < 3:
+	if len(meteors) < level:
 		meteors.append(Meteor())
 
 

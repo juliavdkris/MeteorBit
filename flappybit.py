@@ -45,10 +45,19 @@ class Player(Movable):
 		self.x = 2
 		self.y = 3
 		self.alive = True
+		self.render()
 
 
 def valid_coords(x, y):  # Check if coords are on screen
 	return 0 <= x <= 4 and 0 <= y <= 4  # Chained comparison fuckery
+
+
+player = Player()
+def player_loop():
+	if microbit.button_a.was_pressed():
+		player.move_relative(-1, 0)
+	elif microbit.button_b.was_pressed():
+		player.move_relative(1, 0)
 
 
 # Object loops (TODO: clean up and move to object or main loop)
@@ -56,6 +65,8 @@ def meteor_loop():
 	for meteor in meteors:
 		if not meteor.outside:
 			meteor.move_relative(0, 1)
+			if meteor.x == player.x and meteor.y == player.y:  # Player hit: game over
+				microbit.reset()  # Restart the whole micro:bit, temporary solition as we will need to count deaths in the future. TODO: restart() function that clears all objects and respawns them
 		else:
 			meteor.move(meteor.x, meteor.y, randint(0, 4), 0)
 			meteor.outside = False
@@ -65,5 +76,6 @@ def meteor_loop():
 
 # Main loop
 while True:
+	player_loop()
 	meteor_loop()
 	sleep(1)

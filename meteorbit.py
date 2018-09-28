@@ -19,21 +19,27 @@ deathmessages = {
 	25: 'never gonna tell a lie and hurt you',
 	50: 'wow you\'re really trying'
 }
-startanimation1 = microbit.Image("99000:"
-                                 "99900:"
-                                 "09050:"
-                                 "00525:"
-                                 "00205")
-startanimation2 = microbit.Image("99000:"
-                                 "99900:"
-                                 "09502:"
-                                 "00550:"
-                                 "00205")
-startanimation3 = microbit.Image("99000:"
-                                 "99900:"
-                                 "09250:"
-                                 "00505:"
-                                 "00002")
+startanimation1 = microbit.Image(
+	"99000:"
+	"99900:"
+	"09050:"
+	"00525:"
+	"00205"
+)
+startanimation2 = microbit.Image(
+	"99000:"
+	"99900:"
+	"09502:"
+	"00550:"
+	"00205"
+)
+startanimation3 = microbit.Image(
+	"99000:"
+	"99900:"
+	"09250:"
+	"00505:"
+	"00002"
+)
 
 
 class Movable:
@@ -79,16 +85,8 @@ def valid_coords(x, y):  # Check if coords are on screen
 	return 0 <= x <= 4 and 0 <= y <= 4  # Chained comparison fuckery
 
 
-player = Player()
-def player_loop():
-	if microbit.button_a.was_pressed():
-		player.move_relative(-1, 0)
-	elif microbit.button_b.was_pressed():
-		player.move_relative(1, 0)
-
-
-# Object loops (TODO: clean up and move to object or main loop)
-def meteor_loop():
+# Object ticks (TODO: clean up and move to object or main loop)
+def meteor_tick():
 	for meteor in meteors:
 		if not meteor.outside:
 			meteor.move_relative(0, 1)
@@ -103,24 +101,34 @@ def meteor_loop():
 	if len(meteors) < level + 1:
 		meteors.append(Meteor())
 
+player = Player()
+def player_tick():
+	if microbit.button_a.was_pressed():
+		if valid_coords(player.x - 1, player.y):
+			player.move_relative(-1, 0)
+	elif microbit.button_b.was_pressed():
+		if valid_coords(player.x + 1, player.y):
+			player.move_relative(1, 0)
 
-#homescreen
+
+# Starting screen
 while not microbit.button_a.is_pressed() and not microbit.button_b.is_pressed():
-    microbit.display.show(startanimation1)
-    sleep(0.15)
-    microbit.display.show(startanimation2)
-    sleep(0.15)
-    microbit.display.show(startanimation3)
-    sleep(0.15)
+	microbit.display.show(startanimation1)
+	sleep(0.15)
+	microbit.display.show(startanimation2)
+	sleep(0.15)
+	microbit.display.show(startanimation3)
+	sleep(0.15)
 microbit.display.clear()
 
 
 # Main loop
 while True:
-	player_loop()
+	# Tl;DR: One loop is 1 second. The player tick runs three times, meteor tick once.
+	player_tick()
 	sleep(0.33)
-	meteor_loop()
-	player_loop()
+	meteor_tick()
+	player_tick()
 	sleep(0.33)
-	player_loop()
+	player_tick()
 	sleep(0.33)

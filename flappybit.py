@@ -6,18 +6,18 @@ from random import randint
 
 # Global variables
 level = 1
-death = 0
+deaths = 0
 meteors = []
-deatmessages = {
-    5: 'git gud',
-    10: 'git gudder',
-    20: 'never gonna give you up',
-    21: 'never gonna let you down',
-    22: 'never gonna run around and desert you',
-    23: 'never gonna make you cry',
-    24: 'never gonna say goodbye',
-    25: 'never gonna tell a lie and hurt you',
-    50: 'wow you\'re really trying'
+deathmessages = {
+	5: 'git gud',
+	10: 'git gudder',
+	20: 'never gonna give you up',
+	21: 'never gonna let you down',
+	22: 'never gonna run around and desert you',
+	23: 'never gonna make you cry',
+	24: 'never gonna say goodbye',
+	25: 'never gonna tell a lie and hurt you',
+	50: 'wow you\'re really trying'
 }
 
 
@@ -78,9 +78,9 @@ def meteor_loop():
 		if not meteor.outside:
 			meteor.move_relative(0, 1)
 			if meteor.x == player.x and meteor.y == player.y:  # Player hit: game over
-                death += 1
-                if death in deathmessages:
-                	microbit.display.scroll(deathmessages[death])
+				deaths += 1
+				if deaths in deathmessages:
+					microbit.display.scroll(deathmessages[deaths])
 				microbit.reset()  # Restart the whole micro:bit, temporary solition as we will need to count deaths in the future. TODO: restart() function that clears all objects and respawns them
 		else:
 			meteor.move(meteor.x, meteor.y, randint(0, 4), 0)

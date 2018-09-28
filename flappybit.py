@@ -100,7 +100,7 @@ def meteor_loop():
 		else:
 			meteor.move(meteor.x, meteor.y, randint(0, 4), 0)
 			meteor.outside = False
-	if len(meteors) < level:
+	if len(meteors) < level + 1:
 		meteors.append(Meteor())
 
 

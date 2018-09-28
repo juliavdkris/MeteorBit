@@ -6,6 +6,7 @@ from random import randint
 
 # Global variables
 level = 1
+death = 0
 meteors = []
 deatmessages = {
     5: 'git gud',

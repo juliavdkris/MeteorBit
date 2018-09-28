@@ -77,5 +77,9 @@ def meteor_loop():
 # Main loop
 while True:
 	player_loop()
+	sleep(0.33)
 	meteor_loop()
-	sleep(1)
+	player_loop()
+	sleep(0.33)
+	player_loop()
+	sleep(0.33)

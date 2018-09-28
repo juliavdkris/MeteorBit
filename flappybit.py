@@ -19,6 +19,21 @@ deathmessages = {
 	25: 'never gonna tell a lie and hurt you',
 	50: 'wow you\'re really trying'
 }
+startanimation1 = microbit.Image("99000:"
+                                 "99900:"
+                                 "09050:"
+                                 "00525:"
+                                 "00205")
+startanimation2 = microbit.Image("99000:"
+                                 "99900:"
+                                 "09502:"
+                                 "00550:"
+                                 "00205")
+startanimation3 = microbit.Image("99000:"
+                                 "99900:"
+                                 "09250:"
+                                 "00505:"
+                                 "00002")
 
 
 class Movable:
@@ -87,6 +102,17 @@ def meteor_loop():
 			meteor.outside = False
 	if len(meteors) < level:
 		meteors.append(Meteor())
+
+
+#homescreen
+while not microbit.button_a.is_pressed() and not microbit.button_b.is_pressed():
+    microbit.display.show(startanimation1)
+    sleep(0.15)
+    microbit.display.show(startanimation2)
+    sleep(0.15)
+    microbit.display.show(startanimation3)
+    sleep(0.15)
+microbit.display.clear()
 
 
 # Main loop

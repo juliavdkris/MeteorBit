@@ -1,4 +1,5 @@
 import microbit
+import math
 from time import sleep
 from random import randint
 # from . import classes  # Relative imports don't work (TODO: workaround?)
@@ -87,6 +88,7 @@ def valid_coords(x, y):  # Check if coords are on screen
 
 def restart():
 	del meteors[:]  # Delete everything in meteors list using Python magic
+	level = 1
 	player.x = 2
 	player.y = 3
 	player.alive = False
@@ -101,8 +103,9 @@ def meteor_tick():
 		else:
 			meteor.move(meteor.x, meteor.y, randint(0, 4), 0)
 			meteor.outside = False
-	if len(meteors) < level + 1:
+	if len(meteors) < level:
 		meteors.append(Meteor())
+
 
 player = Player()
 def player_tick():
@@ -123,7 +126,6 @@ def player_tick():
 				microbit.display.scroll(deathmessages[deaths])
 				sleep(0.5)
 			restart()
-		
 
 
 # Starting screen
@@ -141,9 +143,11 @@ microbit.display.clear()
 while True:
 	# Tl;DR: One loop is 1 second. The player tick runs three times, meteor tick once.
 	player_tick()
-	sleep(0.33)
+	sleep(1/level)
 	meteor_tick()
 	player_tick()
-	sleep(0.33)
+	sleep(1/level)
 	player_tick()
-	sleep(0.33)
+	sleep(1/level)
+	if level < 10:
+		level += 0.05

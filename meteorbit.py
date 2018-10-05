@@ -86,9 +86,7 @@ def valid_coords(x, y):  # Check if coords are on screen
 
 
 def restart():
-	for meteor in meteors:
-		meteors.remove(meteor)
-		del meteor
+	del meteors[:]  # Delete everything in meteors list using Python magic
 	player.x = 2
 	player.y = 3
 	player.alive = False
@@ -101,11 +99,13 @@ def meteor_tick():
 		if not meteor.outside:
 			meteor.move_relative(0, 1)
 			if meteor.x == player.x and meteor.y == player.y:  # Player hit: game over
-				global deaths
+				global deaths  # Make the deaths variable accessible in this scope
 				deaths += 1
+				microbit.display.clear()
+				sleep(1)
 				if deaths in deathmessages:
 					microbit.display.scroll(deathmessages[deaths])
-				#microbit.reset()  # Restart the whole micro:bit, temporary solition as we will need to count deaths in the future. TODO: restart() function that clears all objects and respawns them
+					sleep(0.5)
 				restart()
 		else:
 			meteor.move(meteor.x, meteor.y, randint(0, 4), 0)

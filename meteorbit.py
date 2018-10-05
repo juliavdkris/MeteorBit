@@ -98,15 +98,6 @@ def meteor_tick():
 	for meteor in meteors:
 		if not meteor.outside:
 			meteor.move_relative(0, 1)
-			if meteor.x == player.x and meteor.y == player.y:  # Player hit: game over
-				global deaths  # Make the deaths variable accessible in this scope
-				deaths += 1
-				microbit.display.clear()
-				sleep(1)
-				if deaths in deathmessages:
-					microbit.display.scroll(deathmessages[deaths])
-					sleep(0.5)
-				restart()
 		else:
 			meteor.move(meteor.x, meteor.y, randint(0, 4), 0)
 			meteor.outside = False
@@ -121,6 +112,18 @@ def player_tick():
 	elif microbit.button_b.was_pressed():
 		if valid_coords(player.x + 1, player.y):
 			player.move_relative(1, 0)
+
+	for meteor in meteors:
+		if meteor.x == player.x and meteor.y == player.y:  # Player hit: game over
+			global deaths  # Make the deaths variable accessible in this scope
+			deaths += 1
+			microbit.display.clear()
+			sleep(1)
+			if deaths in deathmessages:
+				microbit.display.scroll(deathmessages[deaths])
+				sleep(0.5)
+			restart()
+		
 
 
 # Starting screen

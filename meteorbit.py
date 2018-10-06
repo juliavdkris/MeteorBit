@@ -149,5 +149,5 @@ while True:
 	sleep(1/level)
 	player_tick()
 	sleep(1/level)
-	if level < 10:
+	if level <= 10:
 		level += 0.05

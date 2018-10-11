@@ -110,7 +110,9 @@ def valid_coords(x, y):  # Check if coords are on screen
 
 def restart():
 	del meteors[:]  # Delete everything in meteors list using Python magic
+	global level
 	level = 1
+	global dodged_meteors
 	dodged_meteors = 0
 	player.x = 2
 	player.y = 3

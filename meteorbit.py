@@ -89,6 +89,7 @@ def valid_coords(x, y):  # Check if coords are on screen
 def restart():
 	del meteors[:]  # Delete everything in meteors list using Python magic
 	level = 1
+	dodged_meteors = 0
 	player.x = 2
 	player.y = 3
 	player.alive = False
@@ -103,6 +104,7 @@ def meteor_tick():
 		else:
 			meteor.move(meteor.x, meteor.y, randint(0, 4), 0)
 			meteor.outside = False
+			dodged_meteors += 1
 	if len(meteors) < level:
 		meteors.append(Meteor())
 
@@ -122,6 +124,7 @@ def player_tick():
 			deaths += 1
 			microbit.display.clear()
 			sleep(1)
+			microbit.display.scroll(str(dodged_meteors))
 			if deaths in deathmessages:
 				microbit.display.scroll(deathmessages[deaths])
 				sleep(0.5)

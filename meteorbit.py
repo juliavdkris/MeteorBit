@@ -143,11 +143,11 @@ microbit.display.clear()
 while True:
 	# Tl;DR: One loop is 1 second. The player tick runs three times, meteor tick once.
 	player_tick()
-	sleep(1/level)
+	sleep(0.33)
 	meteor_tick()
 	player_tick()
-	sleep(1/level)
+	sleep(0.33)
 	player_tick()
-	sleep(1/level)
+	sleep(0.33)
 	if level <= 10:
 		level += 0.05

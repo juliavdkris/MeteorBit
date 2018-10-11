@@ -41,6 +41,27 @@ startanimation3 = microbit.Image(
 	"00505:"
 	"00002"
 )
+boomanimation1 = microbit.Image(
+	"00000:"
+	"00300:"
+	"03030:"
+	"00300:"
+	"00000"
+)
+boomanimation2 = microbit.Image(
+	"00200:"
+	"02220:"
+	"22022:"
+	"02220:"
+	"00200"
+)
+boomanimation3 = microbit.Image(
+	"01110:"
+	"10001:"
+	"10001:"
+	"10001:"
+	"01110"
+)
 
 
 class Movable:
@@ -93,6 +114,20 @@ def restart():
 	player.x = 2
 	player.y = 3
 	player.alive = False
+	player.render()
+
+
+def special_ability():
+	del meteors[:]
+	microbit.display.clear()
+	player.render()
+	microbit.display.show(boomanimation1)
+	sleep(0.3)
+	microbit.display.show(boomanimation2)
+	sleep(0.3)
+	microbit.display.show(boomanimation3)
+	sleep(0.3)
+	microbit.display.clear()
 	player.render()
 
 

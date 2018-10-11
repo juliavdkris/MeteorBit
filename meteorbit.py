@@ -121,13 +121,12 @@ def restart():
 def special_ability():
 	del meteors[:]
 	microbit.display.clear()
-	player.render()
 	microbit.display.show(boomanimation1)
-	sleep(0.3)
+	sleep(0.1)
 	microbit.display.show(boomanimation2)
-	sleep(0.3)
+	sleep(0.1)
 	microbit.display.show(boomanimation3)
-	sleep(0.3)
+	sleep(0.1)
 	microbit.display.clear()
 	player.render()
 
@@ -140,17 +139,23 @@ def meteor_tick():
 		else:
 			meteor.move(meteor.x, meteor.y, randint(0, 4), 0)
 			meteor.outside = False
-			dodged_meteors += 1
+			global dodged_meteors
+			dodged_meteors += 1  # NameError
 	if len(meteors) < level:
 		meteors.append(Meteor())
 
 
 player = Player()
 def player_tick():
-	if microbit.button_a.was_pressed():
+	button_a = microbit.button_a.was_pressed()  # This function resets to False every time it's called, which means we have to store it into a variable in order to check it multiple times
+	button_b = microbit.button_b.was_pressed()
+
+	if microbit.button_a.is_pressed() and microbit.button_b.is_pressed():
+		special_ability()
+	elif button_a:
 		if valid_coords(player.x - 1, player.y):
 			player.move_relative(-1, 0)
-	elif microbit.button_b.was_pressed():
+	elif button_b:
 		if valid_coords(player.x + 1, player.y):
 			player.move_relative(1, 0)
 
@@ -159,8 +164,10 @@ def player_tick():
 			global deaths  # Make the deaths variable accessible in this scope
 			deaths += 1
 			microbit.display.clear()
+			sleep(0.5)
+			microbit.display.scroll(dodged_meteors)
 			sleep(1)
-			microbit.display.scroll(str(dodged_meteors))
+			microbit.display.clear()
 			if deaths in deathmessages:
 				microbit.display.scroll(deathmessages[deaths])
 				sleep(0.5)

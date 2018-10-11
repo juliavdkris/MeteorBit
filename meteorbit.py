@@ -8,6 +8,7 @@ from random import randint
 # Global variables
 level = 1
 deaths = 0
+dodged_meteors = 0
 meteors = []
 deathmessages = {
 	5: 'git gud',
@@ -175,7 +176,6 @@ while not microbit.button_a.is_pressed() and not microbit.button_b.is_pressed():
 	microbit.display.show(startanimation3)
 	sleep(0.15)
 microbit.display.clear()
-dodged_meteors = 0
 
 
 # Main loop

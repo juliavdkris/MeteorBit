@@ -2,7 +2,6 @@ import microbit
 import math
 from time import sleep
 from random import randint
-# from . import classes  # Relative imports don't work (TODO: workaround?)
 
 
 # Global variables
@@ -65,6 +64,7 @@ boomanimation3 = microbit.Image(
 )
 
 
+# Classes
 class Movable:
 	x = None
 	y = None
@@ -104,6 +104,7 @@ class Player(Movable):
 		self.render()
 
 
+# Game functions
 def valid_coords(x, y):  # Check if coords are on screen
 	return 0 <= x <= 4 and 0 <= y <= 4  # Chained comparison fuckery
 
@@ -133,7 +134,7 @@ def special_ability():
 	player.render()
 
 
-# Object ticks (TODO: clean up and move to object or main loop)
+# Object ticks
 def meteor_tick():
 	for meteor in meteors:
 		if not meteor.outside:
@@ -142,7 +143,7 @@ def meteor_tick():
 			meteor.move(meteor.x, meteor.y, randint(0, 4), 0)
 			meteor.outside = False
 			global dodged_meteors
-			dodged_meteors += 1  # NameError
+			dodged_meteors += 1
 	if len(meteors) < level:
 		meteors.append(Meteor())
 
